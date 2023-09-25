@@ -1,0 +1,84 @@
+<h2 class="blog-post-title">Compilar php desde fuente en Ubuntu</h2>
+<p class="blog-post-meta">December 6, 2022 | PHP Linux  Ubuntu</p>
+
+<p>Compilar php desde la fuente con Ubuntu 18, es tardadon por las dependencias, pero sencillo,
+  <a href="https://www.phpinternalsbook.com/php7/build_system/building_php.html" target="_blank">recomiendo leer</a> 
+  el contenido, es interesante.</p>
+
+<h4>Compilar php 82</h4>
+<p>Preparando entorno:</p>
+<p class="codigo">sudo apt-get update</p>
+<p class="codigo">sudo apt-get install build-essential autoconf libtool bison re2c pkg-config</p>
+
+<p>Comenzamos <a href="https://www.php.net/downloads.php" target="_blank">descargando </a>el fuente de php, yo
+  descargé
+  php-8.2.10.tar.gz, siguiente paso es descomprimir con "tar -xvzf php-8.2.10.tar.gz.tar.gz", y entrar a la carpeta </p>
+
+<p>Crear el archivo config.nice donde se incluyen las librerias que se requieren, por ejemplo:</p>
+<pre class="codigo">#! /bin/sh
+      #
+      # Created by configure
+      
+      './configure' \
+      '--prefix=/usr/local/php82' \
+      '--enable-cli' \
+      '--enable-fpm' \
+      '--enable-intl' \
+      '--enable-mbstring' \
+      '--enable-opcache' \
+      '--enable-sockets' \
+      '--enable-soap' \
+      '--with-curl' \
+      '--with-freetype' \
+      '--with-fpm-user=www-data' \
+      '--with-fpm-group=www-data' \
+      '--with-jpeg' \
+      '--with-mysql-sock' \
+      '--with-mysqli' \
+      '--with-openssl' \
+      '--with-pdo-mysql' \
+      '--with-pgsql' \
+      '--with-xsl' \
+      '--with-zlib' \
+      "$@" </pre>
+<p>y se ejecuta</p>
+<p class="codigo">./congigure.nice</p>
+<p>Lo más probable es que se tenga que hacer varias veces, porque faltarán algunas dependencias, ya que por fin quede
+  seguimos con:</p>
+<p class="codigo">make <br>make install</p>
+<p>Listo, queda instalado en donde indicamos en "'--prefix=/usr/local/php82' \"</p>
+<img src="../images/2022/make_phpx1.png" alt="" class="img_width zoom">
+<p></p>
+
+
+<h4>Compilar extensiones</h4>
+<p>Listo, con esto queda, algunas extensiones están en la carpeta "ext"</p>
+
+<p class="codigo">pmariaca@pmariacaEA:~/Downloads/software/php/php-8.2.8/ext/mbstring<br>
+  usr/local/php82/bin/phpize <br>
+  ./configure --with-php-config=/usr/local/php82/bin/php-config <br>
+  make <br>
+  sudo make install </p>
+<p> </p>
+
+<p>La extensión que se usa regularmente pero que no tenemos es memcached, se tiene que bajar y hay que
+  verificar que sea la adecuada para la versión que tenemos, esto en <a href="http://pecl.php.net/package/memcache"
+    target="_blank">pecl</a>
+  , y el procedimiento para instalar es el mismo</p>
+
+<p class="codigo">cd php-memcached-master/<br>
+  usr/local/php82/bin/phpize <br>
+  ./configure --with-php-config=/usr/local/php82/bin/php-config <br>
+  make <br>
+  sudo make install </p>
+<p> </p>
+
+<p>Eso es todo en ubuntu 18. Pero al compilar en ubuntu 22, al correr el phpize,  hay un problema:</p>
+<p><img src="../images/2022/make_phpx.png" alt=""  class="img_width zoom"> </p>
+
+<p>probe también con la versión 7.4 y lo mismo.</p>
+
+<p>No tuve problemas con el php 8.3, pero necesitaba también las otras versiones. Al parecer el problema era que
+  la version del autoconfig no coincie, pero en fin, como ya se pueden instalar varias versiones de php, directo con
+  apt-get, decidi por lo sano y listo, lo tengo <button id="pag_20221207" class="btn btn-link" onclick="cargaPag(20221207);" >aquí </button> </p>
+  

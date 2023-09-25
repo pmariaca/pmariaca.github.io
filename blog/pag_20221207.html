@@ -1,0 +1,67 @@
+<h2 class="blog-post-title">Instalar múltiples versiones de PHP, Nginx en Ubuntutu</h2>
+<p class="blog-post-meta">December 7, 2022 | PHP Nginx Linux Ubuntu</p>
+
+<h4>Obtener el repositorio</h4>
+<p>Es bastante sencillo, primero obtenemos el repositorio <i>ppa:ondrej/php</i></p>
+<p class="codigo">sudo apt-get update</p>
+<p class="codigo">sudo apt-get install software-properties-common<br>
+    sudo add-apt-repository ppa:ondrej/php</p>
+
+<p>tenemos esta salida, sólo damos enter</p>
+<img src="../images/2022/install_phpx_2.png" alt="" class="img_width zoom">
+<p></p>
+
+<h4>Instalar versión php 8.1</h4>
+<p>Ahora instalar la primera versión</p>
+<p class="codigo">sudo apt-get install php8.1 php8.1-fpm</p>
+<p>y sus extensiones</p>
+<p class="codigo">sudo apt-get install php8.1-mysql php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl</p>
+<p>verificamos la versión instalada</p>
+<p class="codigo">sudo php -v</p>
+
+<h3>Instalar versión php 7.4</h3>
+
+<p class="codigo">sudo apt-get install php7.4 php7.4-fpm</p>
+<p>y sus extensiones</p>
+<p class="codigo">sudo apt-get install php7.4-mysql php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl</p>
+
+<h4>Cambiar versión</h4>
+<p>Para ver las versiones que tenemos y seleccionar la predeterminada:</p>
+<p class="codigo">update-alternatives --config php</p>
+
+<p></p>
+<div><img src="../images/2022/install_phpx_1.png" alt="" class="img_width zoom"> </div>
+
+<p>otra forma para seleccionar es</p>
+<p class="codigo">sudo update-alternatives --set php /usr/bin/php7.4</p>
+<p></p>
+
+<h4>Configurar Nginx</h4>
+<p>Para configurar Nginx, se crea un archivo en el directorio <i>cd /etc/nginx/sites-available/</i>y la configuración básica es:</p>
+<pre class="codigo">
+server {
+    listen 80;
+    listen [::]:80;
+    server_name wordpressprueba.com;
+    root /var/www/html/pato/wordpress-6.3.1-es_MX/wordpressprueba;
+    index index.html index.php;
+    
+    location ~ \.php$ {
+    # try_files $uri $uri/ =404;
+        include snippets/fastcgi-php.conf;
+
+        #fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+    }
+}
+</pre>
+
+<p>después nos deslazamos al directorio <i>cd /etc/nginx/sites-enabled/</i> y hay que crear una liga simbólica</p>
+<p class="codigo">sudo update-alternatives --set php /usr/bin/php7.4</p>
+
+<p>no olvidar relacionar la dirección IP en: <i>/etc/hosts</i> </p>
+<div><img src="../images/2022/hosts.png" alt="" class="img_width zoom"> </div>
+<p>reiniciar el servidor</p>
+<p class="codigo">service nginx restart</p>
+<p>si algo no funciona, primero verificar con</p>
+<p class="codigo">nginx -t</p>

@@ -1,0 +1,79 @@
+<h2 class="blog-post-title">Catálogo</h2>
+<p class="blog-post-meta">November 4, 2022 | CSS javascript php xml</p>
+
+<p>Debido a ue en mi trabajo requería tener a mano búsquedas recurrentes, decidí, como ejercicio personal hacer un
+    cuaderno de notas con sql's para tener a mano la información y así repasar php, xml, js, css, mysql haciendo una
+    pequeña aplicación llamada sqlPatoCatalog, fue hace ya varios años el código en 
+    <a href="https://github.com/axolote14/sqlPatoCatalog" target="_blank" >https://github.com/axolote14/sqlPatoCatalog</a>
+</p>
+<p>sqlPatoCatalog es un catálogo donde se pueden guardar y organizar las búsquedas sql y ejecutarlas. Además se pueden
+    generar reportes Csv o pdf</p>
+    
+    <p>Con este catálogo se puede:</p>
+
+<p>
+<ul>
+    <li>Al seleccionar una base de datos, se listan las tablas de lado derecho. Para esto use el jquery Selectr
+        <a href="https://github.com/caseyWebb/selectr" target="_blank">https://github.com/caseyWebb/selectr</a></li>
+    <li>Usar diferentes usuarios de mysql.</li>
+    <li>Salvar los sql's y ordenarlos por grupos. Estas búsquedas se guardan en un archivo XML. En el menú tiene
+        opciones para borrar uno o todos de los grupos donde se guardan las sentencias sql.</li>
+    <li>Ver el resultado de la búsqueda, la cual es generada en una tabla, para lo que use el plugin datatables <a
+            href="https://www.datatables.net/" target="_blank">https://www.datatables.net/</a> con el
+        cual se puede generar un reporte csv/pdf con el resultado.</li>
+    <li>Abrir varios tabs de búsqueda, para tener varias busquedas al mismo tiempo, así como otro grupo de tabs, para
+        ver el resultado de las búsquedas, que a mi me ha resultado útil para comparar resultados.</li>
+    <li>Configurar tambén los el color con diferentes less de boostrap.</li>
+</ul>
+</p>
+
+<p>Galería de imágenes:</p>
+
+<div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="../images/notecatalog/n_note_1.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_note_2.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_note_3.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_note_4.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_note_5.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_borrar_grpItem.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_cambiar_vista.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_guardar_login.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_guardar_sql.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/notecatalog/n_nuevo_grppng.png" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<p></p>
+<p>Los estructura de los directorios son:</p>
+<p>
+    <img src="../images/notecatalog/n_tree.png"  alt="tree" class="img_width2">
+
+</p>
