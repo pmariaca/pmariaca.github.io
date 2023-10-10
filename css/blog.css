@@ -189,3 +189,12 @@ h6 {
 .zoom:hover {
     transform: scale(1.5);
 }
+/* ===================================== */
+video{
+    width: 80%;
+    height: 80%;
+    
+}
+div.center {
+    text-align: center;
+}
