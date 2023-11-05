@@ -2,11 +2,18 @@ $(document).ready(function () {
    var url = $(location).attr('href');
    var pag = url.split('=');
    if(pag.length==2){
-      cargaPag(pag[1]);
+      pag = pag[1].split('#');
+      cargaPag(pag[0]);
    }else{
       cargaPag(0)
    }
-   $("#home").on('click', function () { cargaPag(0); });
+
+
+   // $("#home").on('click', function () { 
+   //    $('#inicio')[0].click();//.trigger('click'); 
+   // });
+
+
    $.get("pages/indice.html").done(function (data) {
       var arr = data.split("\n");
       var lineCount = arr.length;
@@ -23,6 +30,11 @@ $(document).ready(function () {
             $("#showList").append(lista);
          }
       }
+      //-------------------------------------------
+      $("[name='sub']").each(function (i,v){
+         var id = $(v).attr('href').split('#')[1];
+         $('#'+id).text($(v).text() );
+      });
    }).fail(function () { });
 });
 /** ====================================================== **/

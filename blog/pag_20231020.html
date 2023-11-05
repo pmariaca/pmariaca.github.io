@@ -1,0 +1,196 @@
+<h2 class="blog-post-title">CRUD con datatables en Laravel</h2>
+<p class="blog-post-meta">October 20, 2023 | PHP Laravel jQuery CSS </p>
+
+<p>El ejrcicio es crear un CRUD con Laravel usando bootstrap, JQuery y plugin de datatables.</p>
+
+<p>Así pues se crearon 3 tablas, de libros, categorías y otra de relación, para poder crear, editar, borrar los libros,
+    y lo mismo para las categorías, tomando en cuenta que no se pueden borrar categorías que estén relacionadas con
+    algún libro. </p>
+
+
+    <p>Código en <a href="https://github.com/pmariaca/laravel_datatables"
+            target="_blank">https://github.com/pmariaca/laravel_datatables</a>
+    </p>
+
+    <p id="up">Contenido</p>
+    <ul>
+        <li><a href="#i1" name="sub">Crear proyecto e instalar bootstrap</a></li>
+        <li><a href="#i2" name="sub">Instalar JQuery</a></li>
+        <li><a href="#i3" name="sub">Instalar datatables con yajra</a></li>
+        <li><a href="#i4" name="sub">Migración y crear modelos</a></li>
+        <li><a href="#i5" name="sub">Crear controladores</a></li>
+        <li><a href="#i6" name="sub">Vistas</a></li>
+    </ul>
+
+    <div class="center">
+        <video src="../images/2023/1020_laravel_datatables.webm" controls muted>navegador no soporta multimedia</video>
+    </div>
+    <br>
+
+    <h4 id="i1"></h4>
+    <p>El primer paso es <a href="https://laravel.com/docs/10.x/installation" target="_blank">instalar Laravel, </a>
+        ya sea de global o local, en mi caso el local. Ya se debe tener composer, node.js y npm. Después crear el
+        proyecto e
+        instalar
+    </p>
+
+    <pre class="codigo">
+    composer create-project laravel/laravel laravel_datatables
+</pre>
+    <p>cambiar al directorio del proyecto y lo primero que hago siempre es determinar la base de datos que usaré, esto
+        en el archivo
+        <strong>.env</strong>, en este caso será sqlite
+    </p>
+    <pre class="codigo">
+    DB_CONNECTION=sqlite
+    DB_FOREIGN_KEYS=true
+</pre>
+
+    <p>y obtener las plantillas, usar <strong>--auth</strong> si se require autentificación, en este caso no lo ocupo,
+        pero quiero que ya esté la
+        barra de navegación en la vista, jo.</p>
+
+    <pre class="codigo">
+    composer require laravel/ui
+    php artisan ui bootstrap --auth
+    npm install bootstrap-icons --save-dev
+</pre>
+    <p>ahora importar los iconos css en resources\sass\app.scss, y debe verse asi, en mi caso sólo agregué la última
+        línea:
+    </p>
+
+    <pre class="codigo">
+    /* Fonts */
+    @import url('https://fonts.bunny.net/css?family=Nunito');
+    /* Variables */
+    @import 'variables';
+    /* Bootstrap */
+    @import 'bootstrap/scss/bootstrap';
+    @import 'bootstrap-icons/font/bootstrap-icons.css';
+    </pre>
+
+    <h4 id="i2"></h4>
+    <a href="#up">up</a>
+
+    <p>Como es un ejercicio básico, no instalaré más que JQuery</p>
+
+    <pre class="codigo">
+    npm install jquery
+</pre>
+
+    <p>y agregar en resources/js/app.js</p>
+    <pre class="codigo">
+    import jQuery from 'jquery';
+    window.$ = jQuery;
+</pre>
+
+    <h4 id="i3"></h4>
+    <a href="#up">up</a>
+
+    <p>Siguiendo las instrucciones de la documentación <a
+            href="https://yajrabox.com/docs/laravel-datatables/10.0/installation" target="_blank">en
+            yajrabox, </a>tomando en cuenta la versión, yo estoy trabajando con Laravel 10.x
+    </p>
+
+    <pre class="codigo">
+    composer require yajra/laravel-datatables-oracle:"^10.3.1"
+</pre>
+    <p> en <strong>config/app.php</strong> agregar en el proveedor de servicio:</p>
+
+
+    <pre class="codigo">
+    'providers' => [
+    // ...
+    Yajra\DataTables\DataTablesServiceProvider::class,
+],
+</pre>
+    <p> el siguiente comando para publicar la configuración y los assets</p>
+
+    <p class="codigo">php artisan vendor:publish --tag=datatables</p>
+    <p>y bueno, ahora se requiere indicar los js y css, que se han incluido, asi que en <strong>app.blade.php</strong>
+        se use agregar:</p>
+    <pre class="codigo">
+        < !-- Scripts -- >
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])     <=======
+    < /head>
+    ....
+    ....
+    @stack('scripts')                           <=======
+    < / body>
+    < / html>
+</pre>
+
+    <p>Puf, y aun hay más <a href="https://yajrabox.com/docs/laravel-datatables/10.0/quick-starter" target="_blank">en
+            yajrabox - starter, </a> pero ni tanto, agregar en el archivo <strong>resources/js/app.js</strong>
+    </p>
+    <pre class="codigo">
+    import 'laravel-datatables-vite';
+</pre>
+
+    <p>y en <strong>resources/sass/app.scss</strong></p>
+
+    <pre class="codigo">
+    // DataTables
+    @import 'bootstrap-icons/font/bootstrap-icons.css';
+    @import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+    @import "datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css";
+    @import 'datatables.net-select-bs5/css/select.bootstrap5.css';
+</pre>
+
+    <h4 id="i4"></h4>
+    <a href="#up">up</a>
+
+    <p>OOks, ya configuramos el archivo <strong>.env</strong> con nuestra base de datos, asi que vamos por los modelos
+    </p>
+
+    <pre class="codigo">
+    php artisan make:model Book -m
+    php artisan make:model Category -m
+    php artisan make:model BookCategory -m 
+</pre>
+
+    <p>Con esto se han creado los modelos, y los archivos para la migración, en los cuales determinamos los campos que
+        se usarán</p>
+    <p></p>
+    <div><img src="../images/2023/1020_modelo_book.png" alt="" class="img_width zoom"> </div>
+    <p></p>
+    <div><img src="../images/2023/1020_modelo_cat.png" alt="" class="img_width zoom"> </div>
+    <p>Para el del model BookCategory, se ajustó el nombre en la migración y en el modelo se define el nombre de la
+        tabla con <strong>protected $table="book_category"</strong>, con esto ya no tendremos conflictos al hacer
+        las búsquedas.
+    </p>
+    <div><img src="../images/2023/1020_modelo_bookcat.png" alt="" class="img_width zoom"> </div>
+    <div><img src="../images/2023/1020_modelo_bookcat_2.png" alt="" class="img_width zoom"> </div>
+
+    <h4 id="i5"></h4>
+    <a href="#up">up</a>
+    <p>Sólo se requieren dos controladores:</p>
+    <pre class="codigo">
+    php artisan make:controller BookController --api --model=Book
+    php artisan make:controller CategoryController --api --model=Category
+</pre>
+
+    <p>NO OLVIDAR, como usaré imágenes, crearé una liga simbólica, que se agregará en
+        <strong>config/filesystems.php</strong></p>
+    <p class="codigo">
+        php artisan storage:link
+    </p>
+
+    <h4 id="i6"></h4>
+    <a href="#up">up</a>
+
+    <p>La estructura de los directorios quedo así, donde las imágenes se guardan en storage/app/public/images</p>
+    <div><img style="width:300px;" src="../images/2023/1020_directorios.png" alt="" class="img_width zoom"> </div>
+
+    <p>La tabla de yajra se llama en
+        <a href="https://github.com/pmariaca/laravel_datatables/blob/master/resources/views/books/index.blade.php"
+            target="_blank">books/index.blade.php</a>
+        así como el JQuery que se usa para las llamadas,que no tiene complicación.
+    </p>
+
+    <p>Para las formas de creación y edición de los libros se usa el archivo _edit.blade.php y para las categorías
+        _category.blade.php</p>
+
+    <p>Para cambiar la configuración se puede ver la documentación en <a href="https://datatables.net/"
+            target="_blank">https://datatables.net/</a>
+    </p>

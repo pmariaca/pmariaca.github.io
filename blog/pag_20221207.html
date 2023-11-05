@@ -1,7 +1,16 @@
 <h2 class="blog-post-title">Instalar múltiples versiones de PHP, Nginx en Ubuntutu</h2>
 <p class="blog-post-meta">December 7, 2022 | PHP Nginx Linux Ubuntu</p>
 
-<h4>Obtener el repositorio</h4>
+<p id="up">Contenido</p>
+<ul>
+    <li><a href="#i1" name="sub">Obtener el repositorio</a></li>
+    <li><a href="#i2" name="sub">Instalar versión php 8.1</a></li>
+    <li><a href="#i3" name="sub">Instalar versión php 7.4</a></li>
+    <li><a href="#i4" name="sub">Cambiar versión</a></li>
+    <li><a href="#i5" name="sub">Configurar Nginx</a></li>
+</ul>
+
+<h4 id="i1">Obtener el repositorio</h4>
 <p>Es bastante sencillo, primero obtenemos el repositorio <i>ppa:ondrej/php</i></p>
 <p class="codigo">sudo apt-get update</p>
 <p class="codigo">sudo apt-get install software-properties-common<br>
@@ -11,7 +20,8 @@
 <img src="../images/2022/install_phpx_2.png" alt="" class="img_width zoom">
 <p></p>
 
-<h4>Instalar versión php 8.1</h4>
+<h4 id="i2"></h4>
+<a href="#up">up</a>
 <p>Ahora instalar la primera versión</p>
 <p class="codigo">sudo apt-get install php8.1 php8.1-fpm</p>
 <p>y sus extensiones</p>
@@ -19,13 +29,15 @@
 <p>verificamos la versión instalada</p>
 <p class="codigo">sudo php -v</p>
 
-<h3>Instalar versión php 7.4</h3>
+<h4 id="i3"></h4>
+<a href="#up">up</a>
 
 <p class="codigo">sudo apt-get install php7.4 php7.4-fpm</p>
 <p>y sus extensiones</p>
 <p class="codigo">sudo apt-get install php7.4-mysql php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl</p>
 
-<h4>Cambiar versión</h4>
+<h4 id="i4"></h4>
+<a href="#up">up</a>
 <p>Para ver las versiones que tenemos y seleccionar la predeterminada:</p>
 <p class="codigo">update-alternatives --config php</p>
 
@@ -36,7 +48,8 @@
 <p class="codigo">sudo update-alternatives --set php /usr/bin/php7.4</p>
 <p></p>
 
-<h4>Configurar Nginx</h4>
+<h4 id="i5"></h4>
+<a href="#up">up</a>
 <p>Para configurar Nginx, se crea un archivo en el directorio <i>cd /etc/nginx/sites-available/</i>y la configuración básica es:</p>
 <pre class="codigo">
 server {

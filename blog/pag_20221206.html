@@ -1,11 +1,18 @@
 <h2 class="blog-post-title">Compilar php desde fuente en Ubuntu</h2>
-<p class="blog-post-meta">December 6, 2022 | PHP Linux  Ubuntu</p>
+<p class="blog-post-meta">December 6, 2022 | PHP Linux Ubuntu</p>
 
 <p>Compilar php desde la fuente con Ubuntu 18, es tardadon por las dependencias, pero sencillo,
-  <a href="https://www.phpinternalsbook.com/php7/build_system/building_php.html" target="_blank">recomiendo leer</a> 
-  el contenido, es interesante.</p>
+  <a href="https://www.phpinternalsbook.com/php7/build_system/building_php.html" target="_blank">recomiendo leer</a>
+  el contenido, es interesante.
+</p>
 
-<h4>Compilar php 82</h4>
+<p id="up">Contenido</p>
+<ul>
+  <li><a href="#i1" name="sub">Compilar php 82</a></li>
+  <li><a href="#i2" name="sub">Compilar extensiones</a></li>
+</ul>
+
+<h4 id="i1"></h4>
 <p>Preparando entorno:</p>
 <p class="codigo">sudo apt-get update</p>
 <p class="codigo">sudo apt-get install build-essential autoconf libtool bison re2c pkg-config</p>
@@ -51,7 +58,9 @@
 <p></p>
 
 
-<h4>Compilar extensiones</h4>
+<h4 id="i2"></h4>
+<a href="#up">up</a>
+
 <p>Listo, con esto queda, algunas extensiones están en la carpeta "ext"</p>
 
 <p class="codigo">pmariaca@pmariacaEA:~/Downloads/software/php/php-8.2.8/ext/mbstring<br>
@@ -73,12 +82,12 @@
   sudo make install </p>
 <p> </p>
 
-<p>Eso es todo en ubuntu 18. Pero al compilar en ubuntu 22, al correr el phpize,  hay un problema:</p>
-<p><img src="../images/2022/make_phpx.png" alt=""  class="img_width zoom"> </p>
+<p>Eso es todo en ubuntu 18. Pero al compilar en ubuntu 22, al correr el phpize, hay un problema:</p>
+<p><img src="../images/2022/make_phpx.png" alt="" class="img_width zoom"> </p>
 
 <p>probe también con la versión 7.4 y lo mismo.</p>
 
 <p>No tuve problemas con el php 8.3, pero necesitaba también las otras versiones. Al parecer el problema era que
   la version del autoconfig no coincie, pero en fin, como ya se pueden instalar varias versiones de php, directo con
-  apt-get, decidi por lo sano y listo, lo tengo <button id="pag_20221207" class="btn btn-link" onclick="cargaPag(20221207);" >aquí </button> </p>
-  
+  apt-get, decidi por lo sano y listo, lo tengo <button id="pag_20221207" class="btn btn-link"
+    onclick="cargaPag(20221207);">aquí </button> </p>
