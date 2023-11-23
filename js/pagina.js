@@ -33,7 +33,8 @@ $(document).ready(function () {
       //-------------------------------------------
       $("[name='sub']").each(function (i,v){
          var id = $(v).attr('href').split('#')[1];
-         $('#'+id).text($(v).text() );
+         $('#'+id).text($(v).text());
+         $('#'+id).addClass('h4css');
       });
    }).fail(function () { });
 });

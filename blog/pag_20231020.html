@@ -1,13 +1,22 @@
 <h2 class="blog-post-title">CRUD con datatables en Laravel</h2>
 <p class="blog-post-meta">October 20, 2023 | PHP Laravel jQuery CSS </p>
 
+    <div class="center">
+        <video src="../images/2023/1020_laravel_datatables.webm" controls muted>navegador no soporta multimedia</video>
+    </div>
+    <br>
+
 <p>El ejrcicio es crear un CRUD con Laravel usando bootstrap, JQuery y plugin de datatables.</p>
 
 <p>Así pues se crearon 3 tablas, de libros, categorías y otra de relación, para poder crear, editar, borrar los libros,
     y lo mismo para las categorías, tomando en cuenta que no se pueden borrar categorías que estén relacionadas con
-    algún libro. </p>
+    algún libro. ( código en <a href="https://github.com/pmariaca/laravel_datatables" target="_blank">laravel_datatables</a> ) </p>
 
-    <p id="up">Contenido</p>
+    <p>El esquema de libros en la base de datos es el siguiente:</p>
+        <p class="img_size7" >
+<img src="../images/2023/shema_laravel_datatables.png"  alt="tree" class=" zoom"></p>
+
+    <h4 id="up">Contenido</h4>
     <ul>
         <li><a href="#i1" name="sub">Crear proyecto e instalar bootstrap</a></li>
         <li><a href="#i2" name="sub">Instalar JQuery</a></li>
@@ -17,12 +26,10 @@
         <li><a href="#i6" name="sub">Vistas</a></li>
     </ul>
 
-    <div class="center">
-        <video src="../images/2023/1020_laravel_datatables.webm" controls muted>navegador no soporta multimedia</video>
-    </div>
-    <br>
 
     <h4 id="i1"></h4>
+    <a href="#up">up</a>
+    
     <p>El primer paso es <a href="https://laravel.com/docs/10.x/installation" target="_blank">instalar Laravel, </a>
         ya sea de global o local, en mi caso el local. Ya se debe tener composer, node.js y npm. Después crear el
         proyecto e
@@ -147,15 +154,15 @@
     <p>Con esto se han creado los modelos, y los archivos para la migración, en los cuales determinamos los campos que
         se usarán</p>
     <p></p>
-    <div><img src="../images/2023/1020_modelo_book.png" alt="" class="img_width zoom"> </div>
+    <div><img src="../images/2023/1020_modelo_book.png" alt="" class="img_size7 zoom"> </div>
     <p></p>
-    <div><img src="../images/2023/1020_modelo_cat.png" alt="" class="img_width zoom"> </div>
+    <div><img src="../images/2023/1020_modelo_cat.png" alt="" class="img_size7 zoom"> </div>
     <p>Para el del model BookCategory, se ajustó el nombre en la migración y en el modelo se define el nombre de la
         tabla con <strong>protected $table="book_category"</strong>, con esto ya no tendremos conflictos al hacer
         las búsquedas.
     </p>
-    <div><img src="../images/2023/1020_modelo_bookcat.png" alt="" class="img_width zoom"> </div>
-    <div><img src="../images/2023/1020_modelo_bookcat_2.png" alt="" class="img_width zoom"> </div>
+    <div><img src="../images/2023/1020_modelo_bookcat.png" alt="" class="img_size7 zoom"> </div>
+    <div><img src="../images/2023/1020_modelo_bookcat_2.png" alt="" class="img_size7 zoom"> </div>
 
     <h4 id="i5"></h4>
     <a href="#up">up</a>
@@ -173,9 +180,13 @@
 
     <h4 id="i6"></h4>
     <a href="#up">up</a>
+    <br/>
+
+    <img style="width:300px;" src="../images/2023/1020_preview_list.png" alt="" class="image zoom">
+    <img style="width:300px;" src="../images/2023/1020_preview_edit.png" alt="" class="image zoom">
 
     <p>La estructura de los directorios quedo así, donde las imágenes se guardan en storage/app/public/images</p>
-    <div><img style="width:300px;" src="../images/2023/1020_directorios.png" alt="" class="img_width zoom"> </div>
+    <div><img style="width:300px;" src="../images/2023/1020_directorios.png" alt="" class="img_size7 zoom"> </div>
 
     <p>La tabla de yajra se llama en
         <a href="https://github.com/pmariaca/laravel_datatables/blob/master/resources/views/books/index.blade.php"

@@ -1,0 +1,262 @@
+<h2 class="blog-post-title">Laravel-React catálogo de libros con autenticación</h2>
+<p class="blog-post-meta">November 21, 2023 | PHP Laravel React </p>
+
+<div class="center">
+    <video src="../images/2023/laravelReact_bookAuth_1.webm" controls muted>navegador no soporta multimedia</video>
+</div>
+<br />
+<p>El ejercicio es hacer un catálogo de libros con una autenticación simple basada en token,
+    ver codigo en <a href="https://github.com/pmariaca/laravelReact_bookAuth" target="_blank">laravelReact_bookAuth</a>,
+    se usa para el desarrollo:
+</p>
+
+<ul>
+    <li>Back-end con Laravel 10.x</li>
+    <li>Front-end con React</li>
+    <li>Como cliente HHTP es Axios</li>
+    <li>Base de datos MySql</li>
+</ul>
+
+
+<p>El esquema de libros en la base de datos es el siguiente:</p>
+<p class="img_size7">
+    <img src="../images/2023/shema_laravelReact_bookAuth.png" alt="tree" class=" zoom">
+</p>
+
+<h4 id="up">Contenido</h4>
+<ul>
+    <li><a href="#i1" name="sub">Autenticación en Laravel</a></li>
+    <li><a href="#i2" name="sub">Formulario de registro con React y Axios</a></li>
+    <li><a href="#i3" name="sub">Migración y seeding del esquema de tablas para los libros</a></li>
+    <li><a href="#i4" name="sub">Controladores y recursos</a></li>
+    <li><a href="#i5" name="sub">Formulario para el catálogo en React</a></li>
+</ul>
+
+<h4 id="i1"></h4>
+
+
+<p>Por supuesto primero creamos el proyecto y configuramos en el archivo <strong>.env</strong> nuestra base de datos
+</p>
+
+<pre class="codigo">
+    composer create-project laravel/laravel laravelReact_bookAuth</pre>
+
+<p>Bendito sea Laravel, incluye lo necesario para construir el esquema de la base de datos para el modelo
+    <strong>App\Models\User</strong>. Así pues, a generar la migración con:
+</p>
+
+<pre class="codigo">
+    php artisan migrate</pre>
+
+<p>En la autenticación para APIs Laravel usa Sanctum, así que se usará la autenticación basada en token, lo básico.
+    Comenzamos con la creación de las rutas para ver el formulario de registro y login, esto en el archivo
+    <strong>routes/api.php</strong> </p>
+
+<p>
+    <img src="../images/2023/routeapi.png" alt="tree" class="img_width2 zoom">
+</p>
+
+<p>Ya están incluidas en las rutas el controlador books que se generará/usará más adelante. Para crear las funciones
+    signup, login y logout generamos el controlador de Auth, en
+    <strong>app/Http/Controllers/Api/AuthController.php</strong> </p>
+
+<pre class="codigo">
+    php artisan make:controller Api/AuthController</pre>
+
+<p>Creamos las clases de petición de formulario <stronf>FormRequest</strong> para la lógica de validación y autorización
+        de nuestras peticiones que se craran en el directorio <strong>app/Http/Requests/</strong>
+</p>
+
+<pre class="codigo">
+    php artisan make:request SignupRequest
+    php artisan make:request LoginRequest</pre>
+
+<img src="../images/2023/requestauth.png" alt="tree" class="img_width zoom">
+
+<h4 id="i2"></h4>
+<a href="#up">up</a>
+
+
+<img src="../images/2023/preview_bookAuth_signup.png" alt="tree" class="img_width zoom">
+
+<p>Bien, en esta parte, se crea el formulario para acceder al catálogo. Para esto se instala React, usaremos vite,
+    eligiendo en las opciones de instalación el framework de React con variante JavaScript</p>
+
+<pre class="codigo">
+    npm create vite
+
+    cd react
+    npm install
+    npm run dev</pre>
+
+<p>Yo uso el puerto 3000, asi en package.json lo ajustamos a ese puerto <strong>vite --port=3000</strong>, lo corremos
+    para ver si todo normal y seguimos. Se usan las siguientes librerías y la documentación respectiva está en: <a
+        href="https://axios-http.com/docs/interceptors" target="_blank">axios-http.com</a> -- <a
+        href="https://reactrouter.com/en/main" target="_blank">reactrouter.com</a> -- <a
+        href="https://react-bootstrap.netlify.app/docs/getting-started/introduction"
+        target="_blank">react-bootstrap.netlify.app</a> así pues a instalar lo siguiente:</p>
+
+<pre class="codigo">
+    // para las peticiones
+    npm install axios
+    // para multiples paginas
+    npm install react-router-dom
+    // y para la vista
+    npm install react-bootstrap bootstrap    </pre>
+
+<p>Se genera un archivo <strong>.env</strong>, en la carpeta <strong>react</strong> por supuesto,
+    para inyectar variables de entorno, en este caso sólo tenemos una que es VITE_API_BASE_URL, y es la ruta a nuestro
+    servidor de prueba. Y
+    en <strong>axios-client.jsx</strong> generamos el cliente con interceptores.
+</p>
+
+<pre class="codigo">
+    touch .env</pre>
+
+<img src="../images/2023/axios.png" alt="tree" class="img_width2 zoom">
+<p>
+    Se creó un ContextProvider <strong>src/contexts/ContexProvider.jsx</strong> para manejar el token del usuario y las
+    rutas en <strong>src/router.jsx</strong> el código
+    se puede ver en <a href="https://github.com/pmariaca/laravelReact_bookAuth/tree/main/react/src" target="_blank"> el
+        directorio react/src </a>,
+</p>
+
+<h4 id="i3"></h4>
+<a href="#up">up</a>
+
+<p>Regresamos al backend, se generan 5 modelos para la migración y para Book, Genre y Author también el factory para
+    luego sembrar datos en la base de datos</p>
+
+<pre class="codigo">
+    php artisan make:model Book -mf
+    php artisan make:model Genre -mf
+    php artisan make:model Author -mf
+
+    php artisan make:model AuthorBook -m
+    php artisan make:model BookGenre -m</pre>
+
+<p>Antes de generar la migración, verificar el nombre de las tablas: <strong>author_books</strong> queda como
+    <strong>author_book</strong> y <strong>book_genres</strong> queda como <strong>book_genres</strong>
+    para que no tengamos conflicto después con las búsquedas con Eloquent. La definición de las tablas está <a
+        href="https://github.com/pmariaca/laravelReact_bookAuth/tree/main/database/migrations" target="_blank"> aquí en
+        database/migrations"</a></p>
+
+<p>Se configuran los modelos con sus relaciones respectivas: </p>
+
+<p class="img_width">
+    <img src="../images/2023/model_book.png" alt="tree" class="zoom">
+    <img src="../images/2023/model_author.png" alt="tree" class="zoom">
+    <img src="../images/2023/model_genre.png" alt="tree" class="zoom">
+</p>
+
+
+<p>sin olvidar las relacionales</p>
+<p>
+    <img src="../images/2023/models_book_genre_author.png" alt="tree" class="img_width2 zoom">
+</p>
+
+<p>La clase factory que creamos para Book, Author y Genres está <a
+        href="https://github.com/pmariaca/laravelReact_bookAuth/tree/main/database/factories" target="_blank"> aquí en
+        database/factories </a> y el seeder queda así:</p>
+
+<pre class="codigo">
+    php artisan make:seeder BookSeeder</pre>
+
+<p>
+    <img src="../images/2023/seedBook.png" alt="tree" class="img_width2 zoom">
+</p>
+
+<p>Y ya podemos migrar y sembrar, claro, con esto borramos también nuestro usuario, con el que hicimos pruebas en el
+    formulario de acceso. </p>
+<pre class="codigo">
+    php artisan migrate:fresh --seed
+    php artisan db:seed --class=BookSeeder</pre>
+
+
+
+<p>Si se requiere cambiar un campo, borrar una tabla o renombrarla, se genera otra migración, ej.:</p>
+
+<pre class="codigo">
+    php artisan make:migration 2023_11_12_213950_create_books_table    </pre>
+
+<p>se cambia lo que se tenga que cambiar y migrar de nuevo</p>
+<pre class="codigo">
+    php artisan migrate    </pre>
+
+<h4 id="i4"></h4>
+<a href="#up">up</a>
+
+<p>Generarmos los controladores y recursos para las tablas implicadas</p>
+
+<pre class="codigo">
+    php artisan make:controller Api/BookController --model=Book --resource --requests --api
+    php artisan make:resource BookResource
+    php artisan make:controller Api/GenreController --model=Genre --resource --requests --api
+    php artisan make:resource GenreResource
+    php artisan make:controller Api/AuthorController --model=Author --resource --requests --api
+    php artisan make:resource AuthorResource</pre>
+
+<p>En la clase del recurso BookResource añadimos además de los campos de Book, 'genres' y 'authors' para incluirlos en
+    el resultado de la búsqueda para el listadode libros</p>
+<p class="img_width">
+    <img src="../images/2023/book_resource.png" alt="tree" class="zoom">
+</p>
+
+<p>Aquí se ve como 'genres' y 'authors' son aplicados en la busqueda Eloquent para listar todos libros (index) con los
+    autores/genres con los que tienen relación
+    así como en (show) para poder crear los select con la lista de todos los autores/generos al editar o añadir un libro
+</p>
+
+<p class="img_width">
+    <img src="../images/2023/book_controller_index.png" alt="tree" class="zoom">
+    <img src="../images/2023/book_controller_show.png" alt="tree" class="zoom">
+</p>
+
+<p>Como se usan imágenes, se crea una liga simbólica en <strong>config/filesystems.php</strong></p>
+
+<pre class="codigo">
+    php artisan storage:link</pre>
+
+
+<h4 id="i5"></h4>
+<a href="#up">up</a>
+
+<img src="../images/2023/preview_bookAuth_edit.png" alt="tree" class="img_size5 zoom">
+
+<p>Para este formulario añadimos las siguientes librerías</p>
+
+<pre class="codigo">
+    // notificaciones monas
+    npm i react-hot-toast
+    // para el select del formulario de libros
+    npm i --save react-select
+    </pre>
+
+
+<p>Aquí las páginas relacionadas al crud de libros, son dos, Book.jsx donde se listan todos los libros, y BookForm.jsx
+    para editar un libro ó añadir uno nuevo. </p>
+
+<p>Como vamos a subir y guardar imágenes se usa el objeto <strong>FormData</strong> para mandar los datos al backend.
+    Aquí muestro las reglas para el request y la
+    parte del codigo de envío de los datos al editar un libro.</p>
+
+
+<p class="img_width">
+    <img src="../images/2023/book_updaterequest.png" alt="tree" class="zoom">
+    <img src="../images/2023/onSubmit.png" alt="tree" class="zoom">
+</p>
+
+
+<p>Me encontré con que al enviar los datos con el objeto <strong>FormData</strong> los datos no llegaban ¿?, como sea,
+    se solucionó de la siguiente manera, no
+    estoy segura si es un bug, o si estoy olvidando algo: </p>
+
+
+<p class="img_width">
+    <img src="../images/2023/axios2.png" alt="tree" class="zoom">
+</p>
+
+<p>Bien, al final los directorios en react quedaron así: </p>
+<p class="img_width">
+    <img src="../images/2023/dirReact.png" alt="tree" class="zoom">
+</p>
