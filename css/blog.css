@@ -193,10 +193,11 @@ h6 {
     position: relative;
 }
 
-h4[id^="i"]
+/* h4[id^="i"] */
+h4
 {
     margin-top: 2.0rem;
-    background-color: rgb(229, 242, 242);
+    background-color: #D9E2EB;
 }
 
 .codigo {
