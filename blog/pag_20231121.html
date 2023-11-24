@@ -2,7 +2,7 @@
 <p class="blog-post-meta">November 21, 2023 | PHP Laravel React </p>
 
 <div class="center">
-    <video src="../images/2023/laravelReact_bookAuth_1.webm" controls muted>navegador no soporta multimedia</video>
+    <video src="../images/2023/1121_laravelReact_bookAuth_1.webm" controls muted>navegador no soporta multimedia</video>
 </div>
 <br />
 <p>El ejercicio es hacer un catálogo de libros con una autenticación simple basada en token,
@@ -20,7 +20,7 @@
 
 <p>El esquema de libros en la base de datos es el siguiente:</p>
 <p class="img_size7">
-    <img src="../images/2023/shema_laravelReact_bookAuth.png" alt="tree" class=" zoom">
+    <img src="../images/2023/1121_shema_laravelReact_bookAuth.png" alt="tree" class=" zoom">
 </p>
 
 <h4 id="up">Contenido</h4>
@@ -53,7 +53,7 @@
     <strong>routes/api.php</strong> </p>
 
 <p>
-    <img src="../images/2023/routeapi.png" alt="tree" class="img_width2 zoom">
+    <img src="../images/2023/1121_routeapi.png" alt="tree" class="img_width2 zoom">
 </p>
 
 <p>Ya están incluidas en las rutas el controlador books que se generará/usará más adelante. Para crear las funciones
@@ -71,13 +71,13 @@
     php artisan make:request SignupRequest
     php artisan make:request LoginRequest</pre>
 
-<img src="../images/2023/requestauth.png" alt="tree" class="img_width zoom">
+<img src="../images/2023/1121_requestauth.png" alt="tree" class="img_width zoom">
 
 <h4 id="i2"></h4>
 <a href="#up">up</a>
 
 
-<img src="../images/2023/preview_bookAuth_signup.png" alt="tree" class="img_width zoom">
+<img src="../images/2023/1121_preview_signup.png" alt="tree" class="img_width zoom">
 
 <p>Bien, en esta parte, se crea el formulario para acceder al catálogo. Para esto se instala React, usaremos vite,
     eligiendo en las opciones de instalación el framework de React con variante JavaScript</p>
@@ -113,7 +113,7 @@
 <pre class="codigo">
     touch .env</pre>
 
-<img src="../images/2023/axios.png" alt="tree" class="img_width2 zoom">
+<img src="../images/2023/1121_axios.png" alt="tree" class="img_width2 zoom">
 <p>
     Se creó un ContextProvider <strong>src/contexts/ContexProvider.jsx</strong> para manejar el token del usuario y las
     rutas en <strong>src/router.jsx</strong> el código
@@ -144,15 +144,15 @@
 <p>Se configuran los modelos con sus relaciones respectivas: </p>
 
 <p class="img_width">
-    <img src="../images/2023/model_book.png" alt="tree" class="zoom">
-    <img src="../images/2023/model_author.png" alt="tree" class="zoom">
-    <img src="../images/2023/model_genre.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_model_book.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_model_author.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_model_genre.png" alt="tree" class="zoom">
 </p>
 
 
 <p>sin olvidar las relacionales</p>
 <p>
-    <img src="../images/2023/models_book_genre_author.png" alt="tree" class="img_width2 zoom">
+    <img src="../images/2023/1121_models_book_genre_author.png" alt="tree" class="img_width2 zoom">
 </p>
 
 <p>La clase factory que creamos para Book, Author y Genres está <a
@@ -163,7 +163,7 @@
     php artisan make:seeder BookSeeder</pre>
 
 <p>
-    <img src="../images/2023/seedBook.png" alt="tree" class="img_width2 zoom">
+    <img src="../images/2023/1121_seedBook.png" alt="tree" class="img_width2 zoom">
 </p>
 
 <p>Y ya podemos migrar y sembrar, claro, con esto borramos también nuestro usuario, con el que hicimos pruebas en el
@@ -199,7 +199,7 @@
 <p>En la clase del recurso BookResource añadimos además de los campos de Book, 'genres' y 'authors' para incluirlos en
     el resultado de la búsqueda para el listadode libros</p>
 <p class="img_width">
-    <img src="../images/2023/book_resource.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_book_resource.png" alt="tree" class="zoom">
 </p>
 
 <p>Aquí se ve como 'genres' y 'authors' son aplicados en la busqueda Eloquent para listar todos libros (index) con los
@@ -208,8 +208,8 @@
 </p>
 
 <p class="img_width">
-    <img src="../images/2023/book_controller_index.png" alt="tree" class="zoom">
-    <img src="../images/2023/book_controller_show.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_book_controller_index.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_book_controller_show.png" alt="tree" class="zoom">
 </p>
 
 <p>Como se usan imágenes, se crea una liga simbólica en <strong>config/filesystems.php</strong></p>
@@ -221,7 +221,7 @@
 <h4 id="i5"></h4>
 <a href="#up">up</a>
 
-<img src="../images/2023/preview_bookAuth_edit.png" alt="tree" class="img_size5 zoom">
+<img src="../images/2023/1121_preview_edit.png" alt="tree" class="img_size5 zoom">
 
 <p>Para este formulario añadimos las siguientes librerías</p>
 
@@ -242,8 +242,8 @@
 
 
 <p class="img_width">
-    <img src="../images/2023/book_updaterequest.png" alt="tree" class="zoom">
-    <img src="../images/2023/onSubmit.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_book_updaterequest.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_onSubmit.png" alt="tree" class="zoom">
 </p>
 
 
@@ -253,10 +253,10 @@
 
 
 <p class="img_width">
-    <img src="../images/2023/axios2.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_axios2.png" alt="tree" class="zoom">
 </p>
 
 <p>Bien, al final los directorios en react quedaron así: </p>
 <p class="img_width">
-    <img src="../images/2023/dirReact.png" alt="tree" class="zoom">
+    <img src="../images/2023/1121_dirReact.png" alt="tree" class="zoom">
 </p>
