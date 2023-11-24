@@ -193,8 +193,7 @@ h6 {
     position: relative;
 }
 
-/* h4[id^="i"] */
-h4
+.subcontent
 {
     margin-top: 2.0rem;
     background-color: #D9E2EB;

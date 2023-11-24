@@ -33,7 +33,10 @@ $(document).ready(function () {
       //-------------------------------------------
       $("[name='sub']").each(function (i,v){
          var id = $(v).attr('href').split('#')[1];
-         $('#'+id).text($(v).text());
+        // $('#'+id).text($(v).text());
+         $('#'+id).addClass('subcontent').text($(v).text());
+         // porque a contentillo el css ?
+         console.log(' --->>>>> CARGANDO ',id)
       });
    }).fail(function () { });
 });
