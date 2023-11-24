@@ -193,7 +193,8 @@ h6 {
     position: relative;
 }
 
-.h4css {
+h4[id^="i"]
+{
     margin-top: 2.0rem;
     background-color: rgb(229, 242, 242);
 }
