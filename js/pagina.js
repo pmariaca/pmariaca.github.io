@@ -34,7 +34,7 @@ $(document).ready(function () {
       $("[name='sub']").each(function (i,v){
          var id = $(v).attr('href').split('#')[1];
          $('#'+id).text($(v).text());
-         document.getElementById(id).classList.add('subcontent');
+         //document.getElementById(id).classList.add('subcontent');
          //$('#'+id).addClass('subcontent').text($(v).text());
          // porque a contentillo el css ?
          //console.log(' --->>>>> CARGANDO ',id)
