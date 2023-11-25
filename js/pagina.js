@@ -8,12 +8,6 @@ $(document).ready(function () {
       cargaPag(0)
    }
 
-
-   // $("#home").on('click', function () { 
-   //    $('#inicio')[0].click();//.trigger('click'); 
-   // });
-
-
    $.get("pages/indice.html").done(function (data) {
       var arr = data.split("\n");
       var lineCount = arr.length;
@@ -30,15 +24,6 @@ $(document).ready(function () {
             $("#showList").append(lista);
          }
       }
-      //-------------------------------------------
-      $("[name='sub']").each(function (i,v){
-         var id = $(v).attr('href').split('#')[1];
-         $('#'+id).text($(v).text());
-         //document.getElementById(id).classList.add('subcontent');
-         //$('#'+id).addClass('subcontent').text($(v).text());
-         // porque a contentillo el css ?
-         //console.log(' --->>>>> CARGANDO ',id)
-      });
    }).fail(function () { });
 });
 /** ====================================================== **/
@@ -50,6 +35,17 @@ function cargaPag(n) {
       $("#showContent").load("pages/home.html");
    } else {
       $("#showCurri").empty();
-      $("#showContent").load("blog/pag_" + n + ".html");
+      $("#showContent").load("blog/pag_" + n + ".html", function(){
+         creaSubcontent();
+      });
    }
+}
+
+function creaSubcontent()
+{
+   $("a[name='sub']").each(function (i,v){
+      var id = $(v).attr('href').split('#')[1];
+      $('#'+id).text($(v).text());
+      $('#'+id).addClass('subcontent');
+   });
 }
